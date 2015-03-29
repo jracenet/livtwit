@@ -4,9 +4,14 @@
 
 <body>
   {{>loginButtons}}
+
+  {{#if currentUser}}
+    {{>sendTweet}}
+  {{/if}}
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+<template name="sendTweet">
+  <form class="send-tweet">
+    <input type="text" name="tweetBody" placeholder="Type your tweet"/>
+  </form>
 </template>

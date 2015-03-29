@@ -1,23 +1,20 @@
 if (Meteor.isClient) {
-  // counter starts at 0
-  Session.setDefault('counter', 0);
-
-  Template.hello.helpers({
-    counter: function () {
-      return Session.get('counter');
-    }
-  });
-
-  Template.hello.events({
-    'click button': function () {
-      // increment the counter when button is clicked
-      Session.set('counter', Session.get('counter') + 1);
+  Template.sendTweet.events({
+    "submit .send-tweet": function (event) {
+      var val = event.target.tweetBody.value;
+      Meteor.call('postTweet', val);
+      return false;
     }
   });
 }
-
 if (Meteor.isServer) {
+  var twitter = new TwitterApi();
   Meteor.startup(function () {
-    // code to run on server at startup
   });
 }
+
+Meteor.methods({
+  postTweet: function (text) {
+    twitter.postTweet(text);
+  }
+})
