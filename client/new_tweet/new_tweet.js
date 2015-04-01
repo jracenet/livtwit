@@ -1,6 +1,10 @@
 Template.newTweet.helpers({
   errorMessages: function () {
     return Session.get('errorMessages');
+  },
+
+  currentPattern: function () {
+    return Session.get('tweetTemplate');
   }
 });
 
