@@ -6,13 +6,6 @@
   {{>loginButtons}}
 
   {{#if currentUser}}
-    {{>sendTweet}}
+    {{> newTweet}}
   {{/if}}
 </body>
-
-<template name="sendTweet">
-  <form class="send-tweet">
-    <input type="text" name="tweetBody" placeholder="Type your tweet"/>
-  </form>
-  {{errorMessages}}
-</template>
