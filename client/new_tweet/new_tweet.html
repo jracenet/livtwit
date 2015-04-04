@@ -1,6 +1,17 @@
 <template name="newTweet">
-  <form class="send-tweet">
-    <input type="text" name="tweetBody" placeholder="Type your tweet" value="{{currentPattern}}"/>
-  </form>
-  {{errorMessages}}
+  <section>
+    <form class="send-tweet">
+      <div class="form-group">      
+        {{#if currentHashtag}}
+          <div class="input-group">
+            <div class="input-group-addon">#{{currentHashtag}}</div>
+            <input type="text" class="form-control" name="tweetBody" placeholder="Type your tweet" maxlength="{{tweetTextMaxLength}}"/>
+          </div>
+        {{else}}
+          <input type="text" class="form-control" name="tweetBody" placeholder="Type your tweet" maxlength="{{tweetTextMaxLength}}"/>
+        {{/if}}
+      </div>
+    </form>
+    {{errorMessages}}
+  </section>
 </template>

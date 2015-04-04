@@ -1,12 +1,21 @@
 <head>
   <title>livetwitt</title>
+  <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
-  {{>loginButtons}}
+  <div class="container-fluid">
+    {{>loginButtons}}
 
-  {{#if currentUser}}
-    {{> defineTweetTemplate}}
-    {{> newTweet}}
-  {{/if}}
+    {{#if currentUser}}
+      <div class="row">
+        <div class="col-xs-12 col-md-3">
+          {{> defineTweetTemplate}}
+          {{> newTweet}}
+        </div>
+      </div>
+    {{/if}}
+  </div>
 </body>

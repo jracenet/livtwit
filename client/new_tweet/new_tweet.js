@@ -3,8 +3,17 @@ Template.newTweet.helpers({
     return Session.get('errorMessages');
   },
 
-  currentPattern: function () {
-    return Session.get('tweetTemplate');
+  currentHashtag: function () {
+    return Session.get('currentHashtag');
+  },
+
+  tweetTextMaxLength: function () {
+    if (!Session.get('currentHashtag')) {
+      return 140;
+    } else {
+      // '2 +' because of the "#" and space chars
+      return 140 - (2 + Session.get('currentHashtag').length);
+    }
   }
 });
 
@@ -16,6 +25,10 @@ Template.newTweet.events({
     event.preventDefault();
     var val = event.target.tweetBody.value;
 
+    if (Session.get('currentHashtag')) {
+      val = '#' + Session.get('currentHashtag') + ' ' + val;
+    }
+    
     if (FormsCheckers.checkTweetLength(val)) {
       Meteor.call('postTweet', val);
     } else {
