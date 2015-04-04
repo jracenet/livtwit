@@ -21,16 +21,18 @@ Template.newTweet.events({
   "change input[name='tweetBody']": function (event) {
     Session.set('errorMessages', '');
   },
-  "submit .send-tweet": function (event) {
+  "submit .send-tweet": function (event, template) {
     event.preventDefault();
     var val = event.target.tweetBody.value;
 
     if (Session.get('currentHashtag')) {
       val = '#' + Session.get('currentHashtag') + ' ' + val;
     }
-    
+
     if (FormsCheckers.checkTweetLength(val)) {
-      Meteor.call('postTweet', val);
+      Meteor.call('postTweet', val, function () { 
+        template.$('input[name="tweetBody"]').val('');
+      });
     } else {
       Session.set('errorMessages', "Your tweet is too long");
     }
