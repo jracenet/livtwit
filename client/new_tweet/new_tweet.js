@@ -4,7 +4,11 @@ Template.newTweet.helpers({
   },
 
   currentHashtag: function () {
-    return Session.get('currentHashtag');
+    if (Session.get('currentHashtag')) {
+      return '#' + Session.get('currentHashtag') + '' ;
+    } else {
+      return '';
+    }
   },
 
   tweetTextMaxLength: function () {
@@ -18,7 +22,7 @@ Template.newTweet.helpers({
 });
 
 Template.newTweet.events({
-  "change input[name='tweetBody']": function (event) {
+  "change textarea[name='tweetBody']": function (event) {
     Session.set('errorMessages', '');
   },
   "submit .send-tweet": function (event, template) {
@@ -31,7 +35,7 @@ Template.newTweet.events({
 
     if (FormsCheckers.checkTweetLength(val)) {
       Meteor.call('postTweet', val, function () { 
-        template.$('input[name="tweetBody"]').val('');
+        template.$('textarea[name="tweetBody"]').val('');
       });
     } else {
       Session.set('errorMessages', "Your tweet is too long");
